@@ -57,5 +57,7 @@ func ExampleEncode() {
 		return
 	}
 	defer f.Close()
-	png.Encode(f, grid.Image(8))
+	if err = png.Encode(f, grid.Image(8)); err != nil {
+		return
+	}
 }

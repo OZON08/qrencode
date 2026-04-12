@@ -1,8 +1,16 @@
 // Package qrencode provides functions to generate QR codes.
 package qrencode
 
+import "fmt"
+
 // QR encode the content at the specified error correction level (ecLevel).
-func Encode(content string, ecLevel ECLevel) (*BitGrid, error) {
+func Encode(content string, ecLevel ECLevel) (grid *BitGrid, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("qrencode: %v", r)
+			grid = nil
+		}
+	}()
 	bits, version, err := stringContentBits(content, ecLevel)
 	if err != nil {
 		return nil, err
@@ -11,7 +19,13 @@ func Encode(content string, ecLevel ECLevel) (*BitGrid, error) {
 }
 
 // QR encode the content at the specified error correction level (ecLevel).
-func EncodeBytes(content []byte, ecLevel ECLevel) (*BitGrid, error) {
+func EncodeBytes(content []byte, ecLevel ECLevel) (grid *BitGrid, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("qrencode: %v", r)
+			grid = nil
+		}
+	}()
 	bits, version, err := binaryContentBits(content, ecLevel)
 	if err != nil {
 		return nil, err

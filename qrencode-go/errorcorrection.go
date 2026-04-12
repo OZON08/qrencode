@@ -1,5 +1,7 @@
 package qrencode
 
+import "sync"
+
 type ECLevel int
 
 const (
@@ -178,8 +180,10 @@ var (
 		203, 89, 95, 176, 156, 169, 160, 81, 11, 245, 22, 235, 122, 117, 44, 215,
 		79, 174, 213, 233, 230, 231, 173, 232, 116, 214, 244, 234, 168, 80, 88, 175,
 	}
-	fieldZero        = gfPoly{[]int{0}}
-	cachedGenerators = []gfPoly{gfPoly{[]int{1}}}
+	fieldZero = gfPoly{[]int{0}}
+
+	cachedGeneratorsMu sync.Mutex
+	cachedGenerators   = []gfPoly{gfPoly{[]int{1}}}
 )
 
 func fieldAddSub(a, b int) int {
@@ -217,6 +221,8 @@ type gfPoly struct {
 }
 
 func buildGenerator(degree int) gfPoly {
+	cachedGeneratorsMu.Lock()
+	defer cachedGeneratorsMu.Unlock()
 	for degree >= len(cachedGenerators) {
 		d := len(cachedGenerators) - 1
 		lastGenerator := cachedGenerators[d]

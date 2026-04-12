@@ -275,8 +275,11 @@ var (
 
 func (v versionNumber) totalCodewords() int {
 	total := 0
-	ecCodewords := ecBlocks[v][1].codewordsPerBlock
-	for _, block := range ecBlocks[v][1].blocks {
+	// All EC levels share the same total codewords per version; only the split
+	// between data and EC bytes differs. Index 1 (ECLevelL) is used here
+	// arbitrarily — any level would yield the same result.
+	ecCodewords := ecBlocks[v][ECLevelL].codewordsPerBlock
+	for _, block := range ecBlocks[v][ECLevelL].blocks {
 		total += block.count * (block.dataCodewords + ecCodewords)
 	}
 	return total

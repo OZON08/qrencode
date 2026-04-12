@@ -1,6 +1,8 @@
 # qrencode
 Fast qrencode written on go
 
+> **Fork notice:** This project is a fork of [d3vilh/qrencode](https://github.com/d3vilh/qrencode).
+
 ## build
 
 ```shell

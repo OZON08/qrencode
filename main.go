@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"image/png"
 	"os"
 
@@ -26,5 +27,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	png.Encode(os.Stdout, grid.Image(8))
+	if err := png.Encode(os.Stdout, grid.Image(8)); err != nil {
+		fmt.Fprintln(os.Stderr, "error writing PNG:", err)
+		os.Exit(1)
+	}
 }
