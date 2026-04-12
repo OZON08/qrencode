@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [0.2.0] - 2026-04-12
 
 ### Security
 - Fixed race condition in `buildGenerator`: `cachedGenerators` is now protected by a `sync.Mutex`, making concurrent use of the library safe (`qrencode-go/errorcorrection.go`)
