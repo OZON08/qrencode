@@ -12,6 +12,8 @@ See [CHANGELOG.md](CHANGELOG.md) for a full list of changes.
 
 ## build
 
+Requires Go 1.26.10 or newer.
+
 ```shell
 git clone https://github.com/OZON08/qrencode
 cd qrencode
@@ -23,6 +25,8 @@ go build -o qrencode main.go
 ```shell
 qrencode "some text" > qr.png
 ```
+
+On failure, the CLI prints an error to stderr and exits with code 1. Error prefixes are shown in German or English, depending on `LC_ALL`, `LC_MESSAGES` or `LANG`.
 
 ## license
 
