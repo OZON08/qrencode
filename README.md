@@ -1,6 +1,6 @@
 # qrencode
 
-![Version](https://img.shields.io/badge/version-0.2.0-blue)
+![Version](https://img.shields.io/badge/version-0.2.1-blue)
 
 Fast QR code encoder written in Go.
 
