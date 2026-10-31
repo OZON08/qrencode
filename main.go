@@ -1,34 +1,29 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"image/png"
+	"io"
 	"os"
+	"strings"
 
-	"github.com/d3vilh/qrencode/qrencode-go"
+	"github.com/OZON08/qrencode/qrencode-go"
 )
 
 func main() {
-	var buf bytes.Buffer
-	for i, arg := range os.Args {
-		if i > 1 {
-			if err := buf.WriteByte(' '); err != nil {
-				panic(err)
-			}
-		}
-		if i > 0 {
-			if _, err := buf.WriteString(arg); err != nil {
-				panic(err)
-			}
-		}
-	}
-	grid, err := qrencode.Encode(buf.String(), qrencode.ECLevelQ)
+	os.Exit(run(os.Args[1:], os.Stdout, os.Stderr))
+}
+
+// run encodes args, joined by spaces, as a PNG QR code and returns the exit code.
+func run(args []string, stdout, stderr io.Writer) int {
+	grid, err := qrencode.Encode(strings.Join(args, " "), qrencode.ECLevelQ)
 	if err != nil {
-		panic(err)
+		fmt.Fprintln(stderr, "error encoding QR code:", err)
+		return 1
 	}
-	if err := png.Encode(os.Stdout, grid.Image(8)); err != nil {
-		fmt.Fprintln(os.Stderr, "error writing PNG:", err)
-		os.Exit(1)
+	if err := png.Encode(stdout, grid.Image(8)); err != nil {
+		fmt.Fprintln(stderr, "error writing PNG:", err)
+		return 1
 	}
+	return 0
 }
