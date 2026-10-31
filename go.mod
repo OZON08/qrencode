@@ -1,3 +1,3 @@
-module github.com/d3vilh/qrencode
+module github.com/OZON08/qrencode
 
-go 1.21.1
+go 1.26.10

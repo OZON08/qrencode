@@ -1,6 +1,6 @@
 # qrencode
 
-![Version](https://img.shields.io/badge/version-0.2.0-blue)
+![Version](https://img.shields.io/badge/version-0.2.1-blue)
 
 Fast QR code encoder written in Go.
 
@@ -11,6 +11,8 @@ Fast QR code encoder written in Go.
 See [CHANGELOG.md](CHANGELOG.md) for a full list of changes.
 
 ## build
+
+Requires Go 1.26.10 or newer.
 
 ```shell
 git clone https://github.com/OZON08/qrencode
@@ -23,6 +25,8 @@ go build -o qrencode main.go
 ```shell
 qrencode "some text" > qr.png
 ```
+
+On failure, the CLI prints an error to stderr and exits with code 1. Error prefixes are shown in German or English, depending on `LC_ALL`, `LC_MESSAGES` or `LANG`.
 
 ## license
 
